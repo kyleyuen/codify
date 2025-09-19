@@ -7,10 +7,10 @@ function App() {
         {/* Header */}
         <header className="mb-8 text-center">
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
-            Checkpoint 1 Python Loops Learning Platform
+            Checkpoint 1 Python Basics
           </h1>
           <p className="text-purple-200">
-            Master loops in Python through interactive coding exercises
+            Master loops in Python through this excercise
           </p>
         </header>
 
@@ -34,7 +34,7 @@ function App() {
               </p>
               <div className="mt-4 p-3 bg-purple-900/50 rounded-lg">
                 <p className="text-purple-200 text-sm">
-                  <span className="font-medium">Current Exercise:</span> Create
+                  <span className="font-medium">Excercie 1:</span> Create
                   a loop that prints numbers 1 to 10, then 10 to 1
                 </p>
               </div>
@@ -135,7 +135,7 @@ function App() {
               </button>
             </div>
 
-            {/* Chat Box / Socratic Dialogue */}
+            {/* Chat*/}
             <div className="glass-card group hover:scale-[1.02] transition-transform duration-300">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-6 h-6 rounded-lg bg-amber-600 flex items-center justify-center">
