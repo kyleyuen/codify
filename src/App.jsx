@@ -1,253 +1,152 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import TypewriterEffect from "./components/TypewriterEffect.jsx";
 
 function App() {
+  const [isRunning, setIsRunning] = useState(false);
+  const [terminalText, setTerminalText] = useState(""); // For typing effect
+  const [showInfo, setShowInfo] = useState(false);
+
+  // Simulate terminal typing
+  useEffect(() => {
+    if (isRunning) {
+      const text = "Starting Codify...";
+      let index = 0;
+
+      const interval = setInterval(() => {
+        // Directly set the substring up to the current index
+        setTerminalText(text.slice(0, index + 1));
+        index++;
+
+        if (index >= text.length) {
+          clearInterval(interval);
+          setTimeout(() => setShowInfo(true), 500); // show info after typing
+        }
+      }, 60);
+
+      return () => clearInterval(interval);
+    } else {
+      setTerminalText("");
+      setShowInfo(false);
+    }
+  }, [isRunning]);
+
+
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900 p-4 md:p-6 font-sans">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <header className="mb-8 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
-            Checkpoint 1 Python Basics
-          </h1>
-          <p className="text-purple-200">
-            Master loops in Python through this excercise
-          </p>
-        </header>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Left Column */}
-          <div className="flex flex-col gap-6">
-            {/* Objective & Instructions */}
-            <div className="glass-card group hover:scale-[1.02] transition-transform duration-300">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                <h2 className="text-xl font-semibold text-white ml-2">
-                  Objective & Instructions
-                </h2>
-              </div>
-              <p className="text-purple-100">
-                Understand loops in Python. Complete the exercises below by
-                writing code in the editor. You'll practice using for loops,
-                while loops, and nested loops to solve problems.
-              </p>
-              <div className="mt-4 p-3 bg-purple-900/50 rounded-lg">
-                <p className="text-purple-200 text-sm">
-                  <span className="font-medium">Excercie 1:</span> Create
-                  a loop that prints numbers 1 to 10, then 10 to 1
-                </p>
-              </div>
-            </div>
-
-            {/* Concepts Learned */}
-            <div className="glass-card group hover:scale-[1.02] transition-transform duration-300">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-6 h-6 rounded-lg bg-purple-600 flex items-center justify-center">
-                  <i className="fas fa-brain text-white text-xs"></i>
-                </div>
-                <h2 className="text-xl font-semibold text-white">
-                  Concepts Learned
-                </h2>
-              </div>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <div className="mt-1 w-5 h-5 rounded-full bg-purple-600 flex items-center justify-center flex-shrink-0">
-                    <span className="text-white text-xs">1</span>
-                  </div>
-                  <div>
-                    <p className="text-white font-medium">For loops</p>
-                    <code className="code-block">
-                      for i in range(5): print(i)
-                    </code>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="mt-1 w-5 h-5 rounded-full bg-purple-600 flex items-center justify-center flex-shrink-0">
-                    <span className="text-white text-xs">2</span>
-                  </div>
-                  <div>
-                    <p className="text-white font-medium">While loops</p>
-                    <code className="code-block">
-                      i = 0; while i &lt; 5: print(i); i += 1
-                    </code>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="mt-1 w-5 h-5 rounded-full bg-purple-600 flex items-center justify-center flex-shrink-0">
-                    <span className="text-white text-xs">3</span>
-                  </div>
-                  <div>
-                    <p className="text-white font-medium">Loop nesting</p>
-                    <code className="code-block">
-                      for i in range(3): for j in range(2): print(i, j)
-                    </code>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="mt-1 w-5 h-5 rounded-full bg-purple-600 flex items-center justify-center flex-shrink-0">
-                    <span className="text-white text-xs">4</span>
-                  </div>
-                  <div>
-                    <p className="text-white font-medium">Basic debugging</p>
-                    <code className="code-block">
-                      print("Check value:", variable)
-                    </code>
-                  </div>
-                </li>
-              </ul>
-            </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 flex flex-col items-center justify-start px-4 py-12">
+      {/* Fake code editor window */}
+      <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-xl w-full max-w-5xl mb-24">
+        {/* Fake editor header */}
+        <div className="flex items-center justify-between px-4 py-3 bg-gray-800 border-b border-gray-700 rounded-t-lg">
+          {/* Left: traffic lights + filename */}
+          <div className="flex items-center space-x-2">
+            <span className="w-3 h-3 bg-red-500 rounded-full"></span>
+            <span className="w-3 h-3 bg-yellow-500 rounded-full"></span>
+            <span className="w-3 h-3 bg-green-500 rounded-full"></span>
+            <p className="ml-4 text-sm text-gray-400 font-mono">App.jsx</p>
           </div>
 
-          {/* Right Column */}
-          <div className="flex flex-col gap-6">
-            {/* Code Editor */}
-            <div className="glass-card group hover:scale-[1.02] transition-transform duration-300">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-6 h-6 rounded-lg bg-blue-600 flex items-center justify-center">
-                  <i className="fas fa-code text-white text-xs"></i>
-                </div>
-                <h2 className="text-xl font-semibold text-white">Code Editor</h2>
-                <div className="ml-auto flex items-center gap-2">
-                  <button className="text-xs text-purple-300 hover:text-white">
-                    <i className="fas fa-redo mr-1"></i> Reset
-                  </button>
-                  <button className="text-xs text-purple-300 hover:text-white">
-                    <i className="fas fa-question-circle mr-1"></i> Hint
-                  </button>
-                </div>
-              </div>
-              <div className="relative">
-                <div className="absolute left-3 top-3 text-sm text-gray-500 font-mono pointer-events-none">
-                  {[...Array(12)].map((_, i) => (
-                    <div key={i}>{i + 1}</div>
-                  ))}
-                </div>
-                <textarea
-                  className="w-full h-64 pl-10 py-3 bg-gray-900 text-gray-100 font-mono text-sm rounded-lg border border-purple-700/30 focus:outline-none resize-none"
-                  placeholder="# Write your Python code here..."
-                  spellCheck="false"
-                ></textarea>
-              </div>
-              <button className="mt-4 px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-medium hover:from-purple-700 hover:to-indigo-700 transition-all shadow-lg hover:shadow-purple-500/20 flex items-center justify-center gap-2">
-                <i className="fas fa-paper-plane"></i>
-                Submit Code
-              </button>
-            </div>
-
-            {/* Chat*/}
-            <div className="glass-card group hover:scale-[1.02] transition-transform duration-300">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-6 h-6 rounded-lg bg-amber-600 flex items-center justify-center">
-                  <i className="fas fa-comments text-white text-xs"></i>
-                </div>
-                <h2 className="text-xl font-semibold text-white">
-                  Chat
-                </h2>
-              </div>
-              <div className="chat-container mb-4">
-                {/* Example static messages */}
-                <div className="message message-bot">
-                  <div className="flex items-start gap-2">
-                    <div className="w-7 h-7 rounded-full flex items-center justify-center bg-gray-600">
-                      <i className="fas fa-robot text-white text-xs"></i>
-                    </div>
-                    <div>
-                      <p className="font-medium">Tutor</p>
-                      <p>Question 1: Can you explain how a for loop works?</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="message message-user">
-                  <div className="flex items-start gap-2">
-                    <div className="w-7 h-7 rounded-full flex items-center justify-center bg-purple-600">
-                      <i className="fas fa-user text-white text-xs"></i>
-                    </div>
-                    <div>
-                      <p className="font-medium">You</p>
-                      <p>Yes, it repeats code for a set number of times.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  placeholder="Type your question or response..."
-                  className="flex-1 px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none"
-                />
-                <button className="px-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-lg font-medium hover:from-amber-600 hover:to-orange-600 transition-all flex items-center justify-center">
-                  <i className="fas fa-paper-plane">Send</i>
-                </button>
-              </div>
-            </div>
+          {/* Right: Login / Signup */}
+          <div className="flex items-center space-x-4">
+            <button
+              className="bg-black text-green-400 font-mono px-3 py-1 rounded-md shadow hover:bg-gray-900 hover:shadow-lg transition transform hover:scale-105"
+              onClick={() => alert("Login clicked")}
+            >
+              ~/login
+            </button>
+            <button
+              className="bg-black text-blue-400 font-mono px-3 py-1 rounded-md shadow hover:bg-gray-900 hover:shadow-lg transition transform hover:scale-105"
+              onClick={() => alert("Signup clicked")}
+            >
+              ~/signup
+            </button>
           </div>
+        </div>
+
+
+        {/* Main content */}
+        <div className="p-12 flex flex-col items-center space-y-12">
+          {/* Title */}
+          <motion.h1
+            className="relative text-6xl md:text-7xl font-extrabold bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent"
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1, ease: 'easeOut' }}
+          >
+            Codify
+          </motion.h1>
+
+          {/* Typewriter Effect */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.8 }}
+          >
+            <TypewriterEffect
+              words={[
+                { word: "Learn by doing" },
+                { word: "Build Your Own Projects" },
+                { word: "Create at your own pace" },
+              ]}
+              typingSpeed={700}
+              deletingSpeed={5000}
+              pauseDuration={1000}
+              cursorColor="#10B981"
+              cursorWidth={2}
+              cursorHeight={100}
+              textColor="#F9FAFB"
+              font={{ fontSize: "32px", variant: "Bold" }}
+            />
+          </motion.div>
+
+          {/* Terminal-style CTA */}
+          <motion.div
+            className="bg-black text-green-400 font-mono px-8 py-5 rounded-lg shadow-lg w-full max-w-md text-left text-xl cursor-pointer transition-transform"
+            onClick={() => setIsRunning(true)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            whileHover={{ scale: 1.03, boxShadow: "0px 0px 20px #10B981" }}
+            transition={{ duration: 0.3 }}
+          >
+            {isRunning ? (
+              <span>
+                <span className="text-cyan-400">~/codify$</span> {terminalText}
+                <span className="inline-block w-1 h-6 bg-green-400 ml-1 animate-blink" />
+              </span>
+            ) : (
+              <span>
+                <span className="text-cyan-400">~/codify$</span> npm start
+              </span>
+            )}
+          </motion.div>
         </div>
       </div>
 
-      {/* Custom Styles */}
-      <style jsx>{`
-        .glass-card {
-          background: rgba(30, 0, 60, 0.5);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(139, 92, 246, 0.3);
-          border-radius: 16px;
-          padding: 1.5rem;
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-          transition: all 0.3s ease;
-        }
+      {/* More info section */}
+      <AnimatePresence>
+        {showInfo && (
+          <motion.div
+            key="more-info"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="w-full max-w-5xl bg-gray-800 p-12 rounded-lg shadow-xl text-white space-y-6"
+          >
+            <h1> INFO Section</h1>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-        .glass-card:hover {
-          border-color: rgba(139, 92, 246, 0.5);
+      {/* Blink animation */}
+      <style>{`
+        @keyframes blink {
+          0%, 50%, 100% { opacity: 1; transform: scale(1); }
+          25%, 75% { opacity: 0; transform: scale(1.2); }
         }
-
-        .code-block {
-          display: block;
-          background: rgba(76, 29, 149, 0.6);
-          color: #fff;
-          padding: 0.5rem;
-          border-radius: 8px;
-          margin-top: 0.5rem;
-          font-family: "Fira Code", monospace;
-          font-size: 0.9rem;
-          border: 1px solid rgba(139, 92, 246, 0.3);
-        }
-
-        .chat-container {
-          height: 250px;
-          overflow-y: auto;
-          padding-right: 0.5rem;
-        }
-
-        .chat-container::-webkit-scrollbar {
-          width: 6px;
-        }
-
-        .chat-container::-webkit-scrollbar-track {
-          background: rgba(0, 0, 0, 0.1);
-          border-radius: 10px;
-        }
-
-        .chat-container::-webkit-scrollbar-thumb {
-          background: rgba(139, 92, 246, 0.5);
-          border-radius: 10px;
-        }
-
-        .message {
-          padding: 0.75rem 1rem;
-          margin-bottom: 0.75rem;
-          border-radius: 12px;
-          max-width: 80%;
-        }
-
-        .message-user {
-          margin-left: auto;
-          background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-        }
-
-        .message-bot {
-          background: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+        .animate-blink {
+          animation: blink 1s infinite;
         }
       `}</style>
     </div>
