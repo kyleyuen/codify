@@ -89,9 +89,9 @@ function App() {
                 { word: "Build Your Own Projects" },
                 { word: "Create at your own pace" },
               ]}
-              typingSpeed={700}
-              deletingSpeed={5000}
-              pauseDuration={1000}
+              typingSpeed={50}
+              deletingSpeed={40}
+              pauseDuration={200}
               cursorColor="#10B981"
               cursorWidth={2}
               cursorHeight={100}
