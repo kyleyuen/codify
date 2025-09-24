@@ -1,0 +1,54 @@
+:root {
+  --fx-z-stars: 0;    /* back */
+  --fx-z-blobs: 1;
+  --fx-z-glyphs: 2;   /* front of FX stack */
+}
+
+/* Full-viewport fixed wrapper so it sits behind your content (but above base gradient if you layer it with z-index) */
+.fx-wrap {
+  position: fixed;
+  inset: 0;
+  z-index: 0;               /* keep your page content above with z-10/20, or wrap with a container that sets z-index */
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* stars canvas */
+.fx-stars {
+  position: absolute;
+  inset: 0;
+  z-index: var(--fx-z-stars);
+}
+
+/* blobs layer */
+.fx-blobs {
+  position: absolute;
+  inset: 0;
+  z-index: var(--fx-z-blobs);
+}
+.fx-blob {
+  position: absolute;
+  border-radius: 9999px;
+  mix-blend-mode: screen;
+  opacity: 0.6;
+  will-change: transform, opacity, filter;
+  backface-visibility: hidden;
+}
+
+/* glyphs */
+.fx-glyphs {
+  position: absolute;
+  inset: 0;
+  z-index: var(--fx-z-glyphs);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono",
+    monospace;
+}
+.fx-glyph {
+  position: absolute;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,0.5));
+  user-select: none;
+  white-space: nowrap;
+  font-weight: 700;
+  backface-visibility: hidden;
+}
