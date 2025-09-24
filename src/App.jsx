@@ -33,10 +33,10 @@ function App() {
 
   return (
     <div className="relative min-h-screen">
-      {/* Gradient background */}
+      {/* Gradient BG */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800" />
 
-      {/* Parallax FX above gradient */}
+      {/* Parallax effect above already existent gradient */}
       <div className="absolute inset-0 z-10">
         <ParallaxEffect starCount={450} glyphCount={22} blobCount={5} />
       </div>
@@ -130,7 +130,7 @@ function App() {
           </div>
         </div>
 
-        {/* More info section */}
+        {/* The more info section */}
         <AnimatePresence>
           {showInfo && (
             <motion.div

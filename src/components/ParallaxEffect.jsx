@@ -5,7 +5,7 @@ import "../styles/parallaxeffect.css";
 const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 const rand = (a, b) => Math.random() * (b - a) + a;
 
-// Big pool of familiar code glyphs/tokens
+// Random pool of programming glyphs/symbols/snippets
 const GLYPH_POOL = [
   // JS/TS
   "=>", "{}", "[]", "()", "null", "undefined", "??", "?.", "import", "export",
@@ -35,8 +35,8 @@ const pickGlyph = () => GLYPH_POOL[Math.floor(Math.random() * GLYPH_POOL.length)
 
 export default function ParallaxEffect({
   starCount = 450,
-  glyphCount = 28,   // a few more glyphs
-  blobCount = 10,    // more blobs, still subtle
+  glyphCount = 28,   
+  blobCount = 10,   
 }) {
   const wrapRef = useRef(null);
   const canvasRef = useRef(null);
@@ -44,17 +44,17 @@ export default function ParallaxEffect({
   const rafRef = useRef(0);
   const lastScrollRef = useRef(-1);
 
-  // Prebuild glyphs and blobs once (stable seeds)
+  // Prebuild glyphs and blobs
   const glyphs = useMemo(
     () =>
       Array.from({ length: glyphCount }, () => ({
         char: pickGlyph(),
-        depth: rand(0.2, 0.95),   // farther = slower
-        xVW: rand(6, 94),         // vw lane
-        yVH: rand(-40, 160),      // vh seed
+        depth: rand(0.2, 0.95),   
+        xVW: rand(6, 94),         
+        yVH: rand(-40, 160),      
         rot: rand(-15, 15),
         sizePx: rand(16, 48),
-        hue: rand(190, 260),      // cyan→purple
+        hue: rand(190, 260),      // cyan to purple color
         driftXPerK: rand(-8, 8),
       })),
     [glyphCount]
@@ -75,7 +75,7 @@ export default function ParallaxEffect({
     [blobCount]
   );
 
-  // STARFIELD (canvas): immediate first paint + parallax
+  // The starry BG, + parallax
   useEffect(() => {
     const c = canvasRef.current;
     const ctx = c.getContext("2d", { alpha: true });
@@ -122,8 +122,8 @@ export default function ParallaxEffect({
         // subtle parallax
         let yy = s.y + y * (1 - s.depth) * 0.4;
 
-        // tile stars vertically (three passes) for seamless fast scroll
-        const TILE = h + 400;
+        // tile stars vertically to fix scroll issues I encountered
+        const TILE = h + 400; 
         for (const off of [-TILE, 0, TILE]) {
           const yk = yy + off;
           if (yk < -100 || yk > h + 100) continue;
@@ -146,7 +146,7 @@ export default function ParallaxEffect({
     };
   }, [starCount]);
 
-  // BLOBS + GLYPHS: immediate paint; blobs are TILED (no pop-in)
+  // added more blobs from og bg and glyphs: immediate paint; blobs are tiled
   useEffect(() => {
     let needsRedraw = true;
     const onResize = () => { needsRedraw = true; };
@@ -164,7 +164,7 @@ export default function ParallaxEffect({
       const vw = window.innerWidth;
       const vh = window.innerHeight;
 
-      // --- BLOBS (tile 3x vertically so they always flow from edges)
+      // more blobs tiled 3x vertically so they always flow from edges
       const B_TILE = vh + 800; // bigger tile = slower repeat (less obvious)
       blobs.forEach((b, i) => {
         const baseX = (b.xVW / 100) * vw;
@@ -184,7 +184,7 @@ export default function ParallaxEffect({
         });
       });
 
-      // --- GLYPHS (code symbols) — these were good, keep wrap feel + drift
+      //  code symbols
       const G_BUFFER = 200;
       const minY = -G_BUFFER;
       const maxY = vh + G_BUFFER;
@@ -200,7 +200,7 @@ export default function ParallaxEffect({
 
         let yy = baseY + parallaxY;
 
-        // smooth wrap both ways without changing X (prevents bunching)
+        // smooth wrap both ways without changing X (prevents bunching from prev version I had)
         while (yy < minY) yy += (maxY - minY);
         while (yy >= maxY) yy -= (maxY - minY);
 
@@ -223,10 +223,10 @@ export default function ParallaxEffect({
 
   return (
     <div ref={wrapRef} className="fx-wrap" aria-hidden="true">
-      {/* layer 1: starfield */}
+      {/* First layer (stars) */}
       <canvas ref={canvasRef} className="fx-stars" />
 
-      {/* layer 2: glowing blobs (each blob rendered 3x for seamless vertical tiling) */}
+      {/* Second layer of glowing blobs (rendered 3x for smoother vertical tiling) */}
       <div className="fx-blobs">
         {blobs.map((_, i) =>
           [-1, 0, 1].map((k) => (
@@ -235,7 +235,7 @@ export default function ParallaxEffect({
         )}
       </div>
 
-      {/* layer 3: code glyphs */}
+      {/* Third layer is code glyphs */}
       <div className="fx-glyphs">
         {glyphs.map((g, i) => (
           <div key={i} id={`glyph-${i}`} className="fx-glyph">
