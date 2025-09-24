@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import TypewriterEffect from "./components/TypewriterEffect.jsx";
+import { Link } from "react-router-dom";
+import AppRoutes from "./Handles/routes.jsx";
 
 function App() {
   const [isRunning, setIsRunning] = useState(false);
