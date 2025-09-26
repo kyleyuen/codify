@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import TypewriterEffect from "../components/TypewriterEffect.jsx";
 import ParallaxEffect from "../components/ParallaxEffect.jsx";
+import InfoSection from "../components/InfoSection.jsx";
 
 export default function Home() {
   const [isRunning, setIsRunning] = useState(false);
@@ -135,13 +136,13 @@ export default function Home() {
           {showInfo && (
             <motion.div
               key="more-info"
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 50 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="w-full max-w-5xl bg-gray-800 p-12 rounded-lg shadow-xl text-white space-y-6"
+              exit={{ opacity: 0, y: 40 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="w-full"
             >
-              <h1> INFO Section</h1>
+              <InfoSection onClose={() => setShowInfo(false)} />
             </motion.div>
           )}
         </AnimatePresence>
