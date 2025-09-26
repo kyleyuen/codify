@@ -11,8 +11,8 @@ export default function AppRoutes() {
       <Route path="/home" element={<Home />} />
       <Route path="/skilltree" element={<SkillTree />} />
       <Route path="/projects" element={<ProjectsPage />} />
-     {/* alias: support plural path /skilltrees as user requested */}
       <Route path="/skilltrees" element={<SkillTree />} />
+      
      {/* optional: 404 route */}
       <Route path="*" element={<h1>404 Not Found</h1>} />
     </Routes>
