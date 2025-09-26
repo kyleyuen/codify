@@ -1,1 +1,17 @@
 @import "tailwindcss";
+
+/* Prevent white gap on overscroll: set consistent global background and remove default margin */
+html, body, #root {
+	height: 100%;
+	margin: 0;
+	background: linear-gradient(180deg, #0f172a 0%, #000000 100%);
+	background-color: #0b1220;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	overscroll-behavior-y: contain; /* reduce browser default bounce showing other backgrounds */
+}
+
+/* Ensure main page uses full-height and has no unexpected white background */
+body {
+	min-height: 100vh;
+}

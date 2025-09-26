@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import TypewriterEffect from "../components/TypewriterEffect.jsx";
 import ParallaxEffect from "../components/ParallaxEffect.jsx";
-import { Link } from "react-router-dom";
 
 export default function Home() {
   const [isRunning, setIsRunning] = useState(false);
@@ -39,7 +38,7 @@ export default function Home() {
 
       {/* Parallax effect above already existent gradient */}
       <div className="absolute inset-0 z-10">
-        <ParallaxEffect starCount={450} glyphCount={22} blobCount={5} />
+        <ParallaxEffect starCount={450} glyphCount={15} blobCount={5} />
       </div>
 
       {/* Content above both */}
