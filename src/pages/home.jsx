@@ -159,8 +159,6 @@ export default function Home() {
         `}</style>
       </div>
 
-      {/* TEMPORARY extra scroll space */}
-      <div className="h-[2000vh]" />
     </div>
   );
 }
