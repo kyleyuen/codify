@@ -9,6 +9,7 @@ export default function Home() {
   const [terminalText, setTerminalText] = useState("");
   const [showInfo, setShowInfo] = useState(false);
 
+
   // Simulate terminal typing
   useEffect(() => {
     if (isRunning) {
