@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import TypewriterEffect from "../components/TypewriterEffect.jsx";
-import ParallaxEffect from "../components/ParallaxEffect.jsx";
-import InfoSection from "../components/InfoSection.jsx";
-import SkillTreeShowcase from "../components/SkillTreeShowcase.jsx";
-import CTA from "../components/CTA.jsx";
+import TypewriterEffect from "../components/Effects/TypewriterEffect.jsx";
+import ParallaxEffect from "../components/Effects/ParallaxEffect.jsx";
+import InfoSection from "../components/Homepage/InfoSection.jsx";
+import SkillTreeShowcase from "../components/Homepage/SkillTreeShowcase.jsx";
+import CTA from "../components/Homepage/CTA.jsx";
 
 export default function Home() {
   const [isRunning, setIsRunning] = useState(false);
