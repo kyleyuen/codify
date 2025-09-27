@@ -3,12 +3,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import TypewriterEffect from "../components/TypewriterEffect.jsx";
 import ParallaxEffect from "../components/ParallaxEffect.jsx";
 import InfoSection from "../components/InfoSection.jsx";
+import SkillTreeShowcase from "../components/SkillTreeShowcase.jsx";
+import CTA from "../components/CTA.jsx";
 
 export default function Home() {
   const [isRunning, setIsRunning] = useState(false);
   const [terminalText, setTerminalText] = useState("");
   const [showInfo, setShowInfo] = useState(false);
-
 
   // Simulate terminal typing
   useEffect(() => {
@@ -32,6 +33,11 @@ export default function Home() {
       setShowInfo(false);
     }
   }, [isRunning]);
+
+  // Quick start handler (kept for future wiring)
+  const handleQuickStart = () => {
+    alert("Quick Start clicked — replace handleQuickStart with your onboarding flow.");
+  };
 
   return (
     <div className="relative min-h-screen">
@@ -132,7 +138,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* The more info section */}
         <AnimatePresence>
           {showInfo && (
             <motion.div
@@ -141,9 +146,30 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="w-full"
+              className="w-full space-y-8"
             >
-              <InfoSection onClose={() => setShowInfo(false)} />
+              <InfoSection />
+
+              {/* SkillTreeShowcase appears directly under the InfoSection */}
+              <motion.div
+                key="skilltrees"
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 18 }}
+                transition={{ duration: 0.45, ease: "easeOut", delay: 0.08 }}
+              >
+                <SkillTreeShowcase />
+              </motion.div>
+
+              {/* CTA Section */}
+              <motion.div
+                key="cta"
+                initial={{ opacity: 0, scale: 0.97 }}
+                animate={{ opacity: 1, scale: 1 }} // stops pulsing
+                transition={{ duration: 0.5, ease: "easeOut", delay: 0.3 }}
+              >
+                <CTA />
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -159,7 +185,6 @@ export default function Home() {
           }
         `}</style>
       </div>
-
     </div>
   );
 }
