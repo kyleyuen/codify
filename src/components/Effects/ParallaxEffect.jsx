@@ -1,6 +1,7 @@
 // src/components/ParallaxEffect.jsx
 import { useEffect, useMemo, useRef } from "react";
-import "../styles/parallaxeffect.css";
+import "../../styles/parallaxeffect.css";
+
 
 const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 const rand = (a, b) => Math.random() * (b - a) + a;
