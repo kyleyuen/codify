@@ -219,6 +219,6 @@ This project was inspired by the belief that every student deserves access to pe
 
 ### ⭐ If you find this project helpful, please consider giving it a star!
 
-**Made with ❤️ by [Kyle Yuen](https://github.com/kyleyuen)**
+**Made with ❤️ by [Kyle Yuen](https://github.com/kyleyuen) and [Brian Blanco](https://github.com/B-B-0-5)**
 
 </div>
